@@ -2,37 +2,119 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* #root {
+  padding-left: 2rem;
+  padding-right: 2rem;
+} */
+
+h1 {
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+h2 {
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+h3{
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+h4{
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+h5 {
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight:600px;
+} 
+.mainpage {
+  font-family: 'Montserrat Alternates', sans-serif;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header {
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  border-bottom: 1px solid rgb(0 0 0 / 18%);;
+}
+.row {
+  padding-top: 1rem;
+}
+.Col {
+  padding-bottom: 1rem;
+}
+.offcanvas {
+  height: 75vh
+}
+.sort {
+  width: 6rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+.gallery {
   display: flex;
-  flex-direction: column;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.profile-pic {
+  width: 13rem;
+  height: 16rem;
+  object-fit: cover;
+} 
+.cardholder {
+  padding-bottom: 2rem;
+}
+
+.cardname {
+  text-align: left;
+  display: flex;
+  justify-content:space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.favorite-button{
+  height: 2rem;
+  color: pink;
 }
 
-.App-link {
-  color: #61dafb;
+.cardbod {
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.left {
+    border-radius: 25px;
+    border: black solid 1px;
+    padding: 10px 10px 10px 10px;
+    position: sticky;
+    top: 20px;
 }
+
+.Container {
+  width: 100vw
+}
+
+.col2Head{
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items:flex-end;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(0 0 0 / 18%)
+}
+.buttons{
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+}
+.button1 .button2{
+  height: 1rem;
+}
+/* .button1{
+  padding-right: 10px;
+}
+.button2{
+  padding-left: 10px
+} */

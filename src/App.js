@@ -20,6 +20,7 @@ function App() {
   const [totalno, favtotal] = useState(0);
   const [favorites, favoriteComposers] = useState([]);
   const [gallery, setGal] = useState(composers);
+  const [filters, setFilters] = useState([]);
 
 
   // compiles all of the years togethetr.
@@ -94,71 +95,72 @@ function App() {
   function filterBaroque() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(baroqueP))
+    setFilters(filters => ["Baroque ", ... filters])
   }
   function filterClassical() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(classicalP))
+    setFilters(filters => ["Classical ", ... filters])
   }
   function filterRomantic() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(romanticP))
+    setFilters(filters => ["Romantic ", ... filters])
   }
   function filterModern() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(modernP))
+    setFilters(filters => ["Modern ", ... filters])
   }
 
-  // BY ORIGIN
-  function austriaP(prop) {
-    return prop.origin == "Austria"
-  }
-  function classicalP(prop) {
-    return prop.epoch == "Classical"
-  }
-  function romanticP(prop) {
-    return prop.epoch == "Early Romantic" || prop.epoch == "Romantic" || prop.epoch == "Late Romantic"
-  }
-  function modernP(prop) {
-    return prop.epoch == "21st Century"
-  }
+
   // russia, france, poland, germany, italy, austria, USA, UK
   function filterAustria() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "Austria"))
+    setFilters(filters => ["Austria ", ... filters])
   }
   function filterFrance() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "France"))
+    setFilters(filters => ["France ", ... filters])
   }
   function filterGermany() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "Germany"))
+    setFilters(filters => ["Germany ", ... filters])
   }
   function filterItaly() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "Italy"))
+    setFilters(filters => ["Italy ", ... filters])
   }
   function filterPoland() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "Poland"))
+    setFilters(filters => ["Poland ", ... filters])
   }
   function filterRussia() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "Russia"))
+    setFilters(filters => ["Russia ", ... filters])
   }
   function filterUK() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "UK"))
+    setFilters(filters => ["UK ", ... filters])
   }
   function filterUSA() {
     const filtMe = [...gallery]
     setGal(filtMe.filter(item => item.origin == "USA"))
+    setFilters(filters => ["USA ", ... filters])
   }
 
   // ===========================================================================
   // ----------------------------- Reset functions -----------------------------
   function reset() {
     setGal(composers);
+    setFilters([]);
   }
 
   // ===========================================================================
@@ -221,38 +223,49 @@ function App() {
 
           <Col md="12" lg="9">
             <div className="col2Head">
-              <h2 style = {{marginBottom: "0px"}}> All of the composers listed: </h2>
-              <div className="buttons">
-                <Button className="button1" variant = "outline-primary" onClick={() => sortAlpha()}>Sort A-Z</Button>
-                <Dropdown className = "button2" as={ButtonGroup}>
-                  <Button variant="outline-success">Epoch Filter</Button>
-                  <Dropdown.Toggle split variant="outline-success" id="dropdown-split-basic" />
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => filterBaroque()} >Baroque</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterClassical()}>Classical</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterRomantic()}>Romantic</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterModern()}>Modern</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => reset()}>Reset all filters</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-                <Dropdown className = "button2" as={ButtonGroup}>
-                  <Button variant="outline-success">Origin Filter</Button>
-                  <Dropdown.Toggle split variant="outline-success" id="dropdown-split-basic" />
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => filterAustria()} >Austria</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterFrance()}>France</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterGermany()}>Germany</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterItaly()}>Italy</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterPoland()}>Poland</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterRussia()}>Russia</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterUK()}>UK</Dropdown.Item>
-                    <Dropdown.Item onClick={() => filterUSA()}>USA</Dropdown.Item>
-                    <Dropdown.Divider />
-                    <Dropdown.Item onClick={() => reset()}>Reset all filters</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+              <div>
+                <h2 style = {{marginBottom: "0px"}}> All of the composers listed: </h2>
+                <p style = {{fontFamily: "'Montserrat Alternates', sans-serif"}}> Filters Active: {filters} </p>
               </div>
+              <div style = {{display: "flex", flexFlow:"row"}}>
+                <div className = "buttons">
+                  <Button className="button1" variant = "outline-primary" onClick={() => sortAlpha()}>Sort A-Z</Button>
+                  <Button className="button1" variant = "outline-danger" onClick={() => reset()}> Reset Filters</Button>
+
+                </div>
+                <div className="buttons">
+                  
+                  <Dropdown className = "button2" as={ButtonGroup}>
+                    <Button variant="outline-success">Epoch Filter</Button>
+                    <Dropdown.Toggle split variant="outline-success" id="dropdown-split-basic" />
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => filterBaroque()} >Baroque</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterClassical()}>Classical</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterRomantic()}>Romantic</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterModern()}>Modern</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item onClick={() => reset()}>Reset all filters</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Dropdown className = "button2" as={ButtonGroup}>
+                    <Button variant="outline-success">Origin Filter</Button>
+                    <Dropdown.Toggle split variant="outline-success" id="dropdown-split-basic" />
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => filterAustria()} >Austria</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterFrance()}>France</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterGermany()}>Germany</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterItaly()}>Italy</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterPoland()}>Poland</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterRussia()}>Russia</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterUK()}>UK</Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterUSA()}>USA</Dropdown.Item>
+                      <Dropdown.Divider />
+                      <Dropdown.Item onClick={() => reset()}>Reset all filters</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
+              </div>
+              
             </div>
             <br></br>
             <div className="gallery">

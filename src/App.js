@@ -5,7 +5,7 @@ import composerComp from "./composer.js"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -21,6 +21,7 @@ function App() {
   const [favorites, favoriteComposers] = useState([]);
   const [gallery, setGal] = useState(composers);
   const [filters, setFilters] = useState([]);
+  const [gall, setGall] = useState([])
 
 
   // compiles all of the years togethetr.
@@ -40,13 +41,13 @@ function App() {
   */
   function determineEra(num) {
     if (num >= 272) {
-      return "Your favorite age seems to be the Baroque Era";
+      return "Your favorite era seems to be the Baroque Era";
     } else if (num < 272 && num >= 202) {
-      return "Your favorite age seems to be the Classical Era";
+      return "Your favorite era seems to be the Classical Era";
     } else if (num < 202 && num >= 122) {
-      return "Your favorite age seems to be the Romantic Era";
+      return "Your favorite era seems to be the Romantic Era";
     } else if (num <122 && num >=0 ) {
-      return "Your favorite age seems to be the Modern Era";
+      return "Your favorite era seems to be the Modern Era";
     }  else {
       return ""
     }
@@ -68,8 +69,9 @@ function App() {
     return 0;
     //code taken from w3 schools.
   }
-
+  const [sortedP, setSort] = useState(false)
   function sortAlpha() {
+    if (!sortedP) {setSort(true)}
     const composerArr = [...gallery]
     setGal(composerArr.sort(compare))
   }
@@ -78,6 +80,18 @@ function App() {
   // ===========================================================================
   // ------------------------- Filtering functions -----------------------------
 
+  const [baroque, setBaroque] = useState(false);
+  const [classical, setClassical] = useState(false);
+  const [romantic, setRomantic] = useState(false);
+  const [modern, setModern] = useState(false);
+  const [austria, setAustria] = useState(false);
+  const [france, setFrance] = useState(false);
+  const [germany, setGermany] = useState(false);
+  const [italy, setItaly] = useState(false);
+  const [poland, setPoland] = useState(false);
+  const [russia, setRussia] = useState(false);
+  const [UK, setUK] = useState(false);
+  const [USA, setUSA] = useState(false);
   // BY EPOCH
   function baroqueP(prop) {
     return prop.epoch == "Baroque"
@@ -93,67 +107,163 @@ function App() {
   }
 
   function filterBaroque() {
+    if (!baroque) {setBaroque(true)}
     const filtMe = [...gallery]
     setGal(filtMe.filter(baroqueP))
+
     setFilters(filters => ["Baroque ", ... filters])
   }
   function filterClassical() {
+    if (!classical) {setClassical(true)}
     const filtMe = [...gallery]
     setGal(filtMe.filter(classicalP))
     setFilters(filters => ["Classical ", ... filters])
   }
   function filterRomantic() {
+    if (!romantic) {setRomantic(true)}
     const filtMe = [...gallery]
     setGal(filtMe.filter(romanticP))
     setFilters(filters => ["Romantic ", ... filters])
   }
   function filterModern() {
+    if (!modern) {setModern(true)}
     const filtMe = [...gallery]
     setGal(filtMe.filter(modernP))
     setFilters(filters => ["Modern ", ... filters])
   }
 
-
+  function filterTime(prop) {
+    return (prop == "Baroque " || prop == "Classical " || prop == "Romantic " || prop == "Modern ")
+  }
+  function resetEpoch() {
+    const filtMe = [...composers]
+    setFilters(filters.filter(filterOrigins))
+    setGal(filtMe)
+    if (sortedP) {
+      setGal(filtMe.sort(compare))
+    }
+    if (austria) {
+      setAustria(false)
+      setGal(filtMe.filter(item => item.origin == "Austria"))
+    }
+    if (france) {
+      setFrance(false)
+      setGal(filtMe.filter(item => item.origin == "France"))
+    }
+    if (germany) {
+      setGermany(false)
+      setGal(filtMe.filter(item => item.origin == "Germany"))
+    }
+    if (italy) {
+      setItaly(false)
+      setGal(filtMe.filter(item => item.origin == "Italy"))
+    }
+    if (poland) {
+      setPoland(false)
+      setGal(filtMe.filter(item => item.origin == "Poland"))
+    }
+    if (russia) {
+      setRussia(false)
+      setGal(filtMe.filter(item => item.origin == "Russia"))
+    }
+    if (UK) {
+      setUK(false)
+      setGal(filtMe.filter(item => item.origin == "UK"))
+    }
+    if (USA) {
+      setUSA(false)
+      setGal(filtMe.filter(item => item.origin == "USA"))
+    }
+  }
   // russia, france, poland, germany, italy, austria, USA, UK
+
   function filterAustria() {
     const filtMe = [...gallery]
+    if (!austria) {setAustria(true)}
     setGal(filtMe.filter(item => item.origin == "Austria"))
     setFilters(filters => ["Austria ", ... filters])
   }
   function filterFrance() {
     const filtMe = [...gallery]
+    if (!france) {setFrance(true)}
     setGal(filtMe.filter(item => item.origin == "France"))
     setFilters(filters => ["France ", ... filters])
   }
   function filterGermany() {
     const filtMe = [...gallery]
+    if (!germany) {setGermany(true)}
     setGal(filtMe.filter(item => item.origin == "Germany"))
     setFilters(filters => ["Germany ", ... filters])
   }
   function filterItaly() {
     const filtMe = [...gallery]
+    if (!italy) {setItaly(true)}
     setGal(filtMe.filter(item => item.origin == "Italy"))
     setFilters(filters => ["Italy ", ... filters])
   }
   function filterPoland() {
     const filtMe = [...gallery]
+    if (!poland) {setPoland(true)}
     setGal(filtMe.filter(item => item.origin == "Poland"))
     setFilters(filters => ["Poland ", ... filters])
   }
   function filterRussia() {
     const filtMe = [...gallery]
+    if (!russia) {setRussia(true)}
     setGal(filtMe.filter(item => item.origin == "Russia"))
     setFilters(filters => ["Russia ", ... filters])
   }
   function filterUK() {
     const filtMe = [...gallery]
+    if (!UK) {setUK(true)}
     setGal(filtMe.filter(item => item.origin == "UK"))
     setFilters(filters => ["UK ", ... filters])
   }
   function filterUSA() {
     const filtMe = [...gallery]
+    if (!USA) {setUSA(true)}
     setGal(filtMe.filter(item => item.origin == "USA"))
     setFilters(filters => ["USA ", ... filters])
+  }
+  function filterOrigins(prop) {
+    return (prop == "Austria " || prop == "France " || prop == "Germany "||
+    prop == "Italy " || prop == "Poland " || prop == "Russia " || prop == "UK " || prop == "USA ")
+  }
+  function resetOrigin() {
+    setFilters(filters.filter(filterTime))
+    setGal(filtMe)
+    const filtMe = [...composers]
+    if (sortedP) {
+      setGal(filtMe.sort(compare))
+    }
+    if (baroque) {
+      setBaroque(false)
+      setGal(filtMe.filter(baroqueP))
+    }
+    if (classical) {
+      setClassical(false)
+      setGal(filtMe.filter(classicalP))
+    }
+    if (romantic) {
+      setRomantic(false)
+      setGal(filtMe.filter(romanticP))
+    }
+    if (modern) {
+      setModern(false) 
+      setModern(filtMe.filter(romanticP))
+    }
+  }
+
+  function activateFilters() {
+    setGall([...composers])
+   
+    if (baroque) {
+      setGall(gall.filter(baroqueP))
+      setFilters(filters => ["Baroque ", ... filters])
+    } 
+    console.log(baroque)
+    console.log(gall)
+    setGal(gall)
   }
 
   // ===========================================================================
@@ -194,7 +304,7 @@ function App() {
         <Navbar className="navbar">
 
           <Navbar.Brand href="home"><h1>&#127925; composers 101 &#127925;</h1></Navbar.Brand>
-          <Navbar.Toggle />
+          <Navbar.Toggle/>
           <Navbar.Collapse className="justify-content-end">
           </Navbar.Collapse>
 
@@ -207,7 +317,7 @@ function App() {
           <Col md="12" lg="3" style = {{paddingBottom: "1rem"}}>
             <div className="left">
               <div style = {{display: "flex", alignItems:"center"}}>
-                <h5>Which age of Classical music do you like best?</h5>
+                <h5>Which era of Classical music do you like best?</h5>
                 <Overlay/>
               </div>
               
@@ -229,22 +339,22 @@ function App() {
               </div>
               <div style = {{display: "flex", flexFlow:"row"}}>
                 <div className = "buttons">
-                  <Button className="button1" variant = "outline-primary" onClick={() => sortAlpha()}>Sort A-Z</Button>
+                  <Button className="button1" variant = "outline-primary" onClick={() => sortAlpha()}>Sort Name A-Z</Button>
                   <Button className="button1" variant = "outline-danger" onClick={() => reset()}> Reset Filters</Button>
 
                 </div>
                 <div className="buttons">
                   
                   <Dropdown className = "button2" as={ButtonGroup}>
-                    <Button variant="outline-success">Epoch Filter</Button>
+                    <Button variant="outline-success">Era Filter</Button>
                     <Dropdown.Toggle split variant="outline-success" id="dropdown-split-basic" />
                     <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => filterBaroque()} >Baroque</Dropdown.Item>
+                      <Dropdown.Item onClick={() => {filterBaroque()}}>Baroque</Dropdown.Item>
                       <Dropdown.Item onClick={() => filterClassical()}>Classical</Dropdown.Item>
                       <Dropdown.Item onClick={() => filterRomantic()}>Romantic</Dropdown.Item>
                       <Dropdown.Item onClick={() => filterModern()}>Modern</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item onClick={() => reset()}>Reset all filters</Dropdown.Item>
+                      {/* <Dropdown.Divider />
+                      <Dropdown.Item onClick={() => resetEpoch()}>Reset Epoch</Dropdown.Item> */}
                     </Dropdown.Menu>
                   </Dropdown>
                   <Dropdown className = "button2" as={ButtonGroup}>
@@ -259,8 +369,8 @@ function App() {
                       <Dropdown.Item onClick={() => filterRussia()}>Russia</Dropdown.Item>
                       <Dropdown.Item onClick={() => filterUK()}>UK</Dropdown.Item>
                       <Dropdown.Item onClick={() => filterUSA()}>USA</Dropdown.Item>
-                      <Dropdown.Divider />
-                      <Dropdown.Item onClick={() => reset()}>Reset all filters</Dropdown.Item>
+                      {/* <Dropdown.Divider />
+                      <Dropdown.Item onClick={() => resetOrigin()}>Reset Origin</Dropdown.Item> */}
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>

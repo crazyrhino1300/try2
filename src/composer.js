@@ -14,6 +14,9 @@ export default function composerComp(prop, addYear, addFav, appendComposer, remo
                         {/* <img className="profile-pic" src={prop.photo} /> */}
                         <Biography prop={prop}/>
                     </div>
+                <p style = {{fontFamily: "'Montserrat Alternates', sans-serif", marginBottom:"0px", textAlign:"center"}}>Age: {2022 - parseInt(prop.birth.split('-')[0])}--Era: {prop.epoch}--Origin: {prop.origin}</p>
+
+                
                     
 
                 </Card.Body>
